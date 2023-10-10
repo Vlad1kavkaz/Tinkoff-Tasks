@@ -11,11 +11,11 @@ public class IsPalindromeDescendantTest {
     @DisplayName("Особый палиндром")
     public void testIsPalindromeDescendant() {
         // given
-        BigInteger num1 = new BigInteger("11211230");
-        BigInteger num2 = new BigInteger("13001120");
-        BigInteger num3 = new BigInteger("23336014");
-        BigInteger num4 = new BigInteger("11");
-        BigInteger num5 = new BigInteger("5");
+        int num1 = 11211230;
+        int num2 = 13001120;
+        int num3 = 23336014;
+        int num4 = 11;
+        int num5 = 5;
 
         // when
         boolean result1 = IsPalindromeDescendant.isPalindromeDescendant(num1);

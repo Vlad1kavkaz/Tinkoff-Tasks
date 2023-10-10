@@ -1,71 +1,59 @@
 package edu.hw1;
 
-public class KnightBoardCapture {
-    public static void main(String[] args) {
-        int[][] board1 = {
-            {0, 0, 0, 1, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 1, 0, 0, 0, 1, 0, 0},
-            {0, 0, 0, 0, 1, 0, 1, 0},
-            {0, 1, 0, 0, 0, 1, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 1, 0, 0, 0, 0, 0, 1},
-            {0, 0, 0, 0, 1, 0, 0, 0}
-        };
-        System.out.println(knightBoardCapture(board1));
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 
-        int[][] board2 = {
-            {1, 0, 1, 0, 1, 0, 1, 0},
-            {0, 1, 0, 1, 0, 1, 0, 1},
-            {0, 0, 0, 0, 1, 0, 1, 0},
-            {0, 0, 1, 0, 0, 1, 0, 1},
-            {1, 0, 0, 0, 1, 0, 1, 0},
-            {0, 0, 0, 0, 0, 1, 0, 1},
-            {1, 0, 0, 0, 1, 0, 1, 0},
-            {0, 0, 0, 1, 0, 1, 0, 1}
-        };
-        System.out.println(knightBoardCapture(board2));
+// task8
+public final class KnightBoardCapture {
+    private static final Properties PROPERTIES = new Properties();
 
-        int[][] board3 = {
-            {0, 0, 0, 0, 1, 0, 0, 0},
-            {0, 0, 0, 0, 0, 1, 0, 0},
-            {0, 0, 0, 1, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 1, 0, 0, 0},
-            {0, 0, 0, 0, 0, 1, 0, 0},
-            {0, 0, 0, 0, 0, 1, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0}
-        };
-        System.out.println(knightBoardCapture(board3));
+    static {
+        try {
+            PROPERTIES.load(new FileInputStream("src/main/resources/config.properties"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public static boolean knightBoardCapture(int[][] board) {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                if (board[i][j] == 1) {
-                    if (isKnightCaptured(board, i, j)) {
-                        return false;
+    private KnightBoardCapture() {
+    }
+
+    public static boolean knightBoardCapture(int[][] array) {
+        int[][] validationArray = array;
+        int rotationTimes = Integer.parseInt(PROPERTIES.getProperty("rotations"));
+        for (int k = 0; k < rotationTimes; k++) {
+            for (int i = 0; i < array.length; i++) {
+                for (int j = 0; j < array[0].length; j++) {
+                    if (array[i][j] != 0) {
+                        if ((j + 2) < array[0].length && (i + 1) < array.length) {
+                            if (array[i + 1][j + 2] != 0) {
+                                return false;
+                            }
+                        }
+                        if ((j + 2) < array[0].length && (i - 1) > 0) {
+                            if (array[i - 1][j + 2] != 0) {
+                                return false;
+                            }
+                        }
                     }
                 }
             }
+            validationArray = rotateArray(validationArray);
         }
+
         return true;
     }
 
-    public static boolean isKnightCaptured(int[][] board, int row, int col) {
-        int[] dx = {-2, -1, 1, 2, 2, 1, -1, -2};
-        int[] dy = {1, 2, 2, 1, -1, -2, -2, -1};
+    private static int[][] rotateArray(int[][] originalArray) {
+        int[][] rotatedArray = new int[originalArray[0].length][originalArray.length];
 
-        for (int i = 0; i < 8; i++) {
-            int newRow = row + dx[i];
-            int newCol = col + dy[i];
-
-            if (newRow >= 0 && newRow < board.length && newCol >= 0 && newCol < board[0].length) {
-                if (board[newRow][newCol] == 1) {
-                    return true;
-                }
+        for (int i = 0; i < originalArray.length; i++) {
+            for (int j = 0; j < originalArray[0].length; j++) {
+                rotatedArray[j][originalArray.length - 1 - i] = originalArray[i][j];
             }
         }
-        return false;
+
+        return rotatedArray;
     }
 }

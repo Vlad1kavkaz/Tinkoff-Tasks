@@ -1,39 +1,50 @@
 package edu.hw1;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class FixStringTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+class BrokenStringTest {
 
     @Test
-    @DisplayName("Сломанная строка")
-    public void testFixString() {
-        // given
-        String input1 = "123456";
-        String input2 = "hTsii  s aimex dpus rtni.g";
-        String input3 = "abcde";
-        String input4 = "a";
-        String input5 = "";
+    void testFixString_whenBrokenStringInput_returnsFixedString() {
+        // Arrange
+        String brokenStr1 = "123456";
+        String brokenStr2 = "hTsii  s aimex dpus rtni.g";
 
-        // when
-        String result1 = FixString.fixString(input1);
-        String result2 = FixString.fixString(input2);
-        String result3 = FixString.fixString(input3);
-        String result4 = FixString.fixString(input4);
-        String result5 = FixString.fixString(input5);
+        // Act
+        String fixedStr1 = FixString.fixString(brokenStr1);
+        String fixedStr2 = FixString.fixString(brokenStr2);
 
-        // then
-        String expected1 = "214365";
-        String expected2 = "This is a mixed up string.";
-        String expected3 = "badce";
-        String expected4 = "a";
-        String expected5 = "";
+        // Assert
+        assertEquals("214365", fixedStr1);
+        assertEquals("This is a mixed up string.", fixedStr2);
+    }
 
-        Assertions.assertEquals(expected1, result1);
-        Assertions.assertEquals(expected2, result2);
-        Assertions.assertEquals(expected3, result3);
-        Assertions.assertEquals(expected4, result4);
-        Assertions.assertEquals(expected5, result5);
+    @Test
+    void testFixString_whenProvidedStringWithOddNumberOfCharacters_returnsFixedString() {
+        // Arrange
+        String brokenStr1 = "badce";
+        String brokenStr2 = "w";
+
+        // Act
+        String fixedStr1 = FixString.fixString(brokenStr1);
+        String fixedStr2 = FixString.fixString(brokenStr2);
+
+        // Assert
+        assertEquals("abcde", fixedStr1);
+        assertEquals("w", fixedStr2);
+    }
+
+    @Test
+    void testFixString_whenProvidedEmptyString_returnsEmptyString() {
+        // Arrange
+        String brokenStr = "";
+
+        // Act
+        String fixedStr = FixString.fixString(brokenStr);
+
+        // Assert
+        assertEquals("", fixedStr);
     }
 }

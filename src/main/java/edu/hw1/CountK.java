@@ -1,33 +1,85 @@
 package edu.hw1;
 
-import java.util.Arrays;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Properties;
 
-public class CountK {
+// task6
+public final class CountK {
+    private final static Properties PROPERTIES = new Properties();
 
-    public static void main(String[] args) {
-        System.out.println(countK(3524)); // Выведет 3
-        System.out.println(countK(6621)); // Выведет 5
-        System.out.println(countK(6554)); // Выведет 4
-        System.out.println(countK(1234)); // Выведет 3
-    }
-
-    public static int countK(int n) {
-        int count = 0;
-        while (n != 6174) {
-            int[] digits = new int[4];
-            digits[0] = n % 10;
-            digits[1] = (n / 10) % 10;
-            digits[2] = (n / 100) % 10;
-            digits[3] = (n / 1000) % 10;
-
-            Arrays.sort(digits);
-            int ascNum = digits[0] * 1000 + digits[1] * 100 + digits[2] * 10 + digits[3];
-            int descNum = digits[3] * 1000 + digits[2] * 100 + digits[1] * 10 + digits[0];
-
-            n = descNum - ascNum;
-            count++;
+    static {
+        try {
+            PROPERTIES.load(new FileInputStream("src/main/resources/config.properties"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return count;
     }
-}
 
+    private CountK() {
+    }
+
+    public static int countK(int number) {
+        int lowerBound = Integer.parseInt(PROPERTIES.getProperty("lower.bound"));
+        int upperBound = Integer.parseInt(PROPERTIES.getProperty("upper.bound"));
+        int lastIndex = Integer.parseInt(PROPERTIES.getProperty("last.index"));
+        if (number > lowerBound && number < upperBound) {
+            String numberString = Integer.toString(number);
+            for (int i = 1; i < numberString.length(); i++) {
+                if (numberString.charAt(0) != numberString.charAt(i)) {
+                    break;
+                }
+                if (i == lastIndex) {
+                    throw new RuntimeException("All the numbers are the same");
+                }
+            }
+            return countK(number, 0);
+        }
+        throw new RuntimeException("The boundaries of the incoming value are violated");
+    }
+
+    private static int countK(int number, int callCount) {
+        StringBuilder sb = new StringBuilder(Integer.toString(number));
+
+        int minNumberDigits = Integer.parseInt(PROPERTIES.getProperty("min.number.digits"));
+
+        while (sb.length() != minNumberDigits) {
+            sb.insert(0, "0");
+        }
+
+        List<Integer> digitList = sb.toString()
+            .chars()
+            .map(Character::getNumericValue)
+            .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+
+        digitList.sort(Collections.reverseOrder());
+        int bigNumber = 0;
+
+        int multiplier = Integer.parseInt(PROPERTIES.getProperty("multiplier"));
+
+        for (int digit : digitList) {
+            bigNumber = bigNumber * multiplier + digit;
+        }
+
+        Collections.sort(digitList);
+        int smallNumber = 0;
+
+        for (int digit : digitList) {
+            smallNumber = smallNumber * multiplier + digit;
+        }
+
+        int result = bigNumber - smallNumber;
+
+        if (result == number) {
+            return callCount;
+        }
+
+        int newCallCount = callCount + 1;
+
+        return countK(result, newCallCount);
+    }
+
+}

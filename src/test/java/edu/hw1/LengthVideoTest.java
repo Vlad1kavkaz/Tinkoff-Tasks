@@ -1,62 +1,50 @@
 package edu.hw1;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
 
-public class LengthVideoTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+class MovieTest {
+
     @Test
-    @DisplayName("Перевод минут и секунд в секунды")
-    void minutesToSeconds() {
-        // given
-        String lengthVideo0 = "0:50";
-        String lengthVideo1 = "1:50";
+    void testMinutesToSeconds_whenValidInput_returnsTotalSeconds() {
+        // Arrange
+        String inputTime1 = "1:00";
+        String inputTime2 = "13:56";
+        String inputTime3 = "00:59";
 
-        // when
-        int result0 = LengthVideo.minutesToSeconds(lengthVideo0);
-        int result1 = LengthVideo.minutesToSeconds(lengthVideo1);
+        // Act
+        int actualSeconds1 = LengthVideo.minutesToSeconds(inputTime1);
+        int actualSeconds2 = LengthVideo.minutesToSeconds(inputTime2);
+        int actualSeconds3 = LengthVideo.minutesToSeconds(inputTime3);
 
-        // then
-        assertThat(result0).isEqualTo(50);
-        assertThat(result1).isEqualTo(110);
+        // Assert
+        assertEquals(60, actualSeconds1);
+        assertEquals(836, actualSeconds2);
+        assertEquals(59, actualSeconds3);
     }
 
     @Test
-    @DisplayName("Некорректное количество секунд")
-    void invalidSeconds() {
-        // given
-        String lengthVideo = "10:60";
+    void testMinutesToSeconds_whenInvalidInput_returnsMinusOne() {
+        // Arrange
+        String inputTime1 = "10:60";
+        String inputTime2 = "10:-1";
+        String inputTime3 = "asd:10";
+        String inputTime4 = "10:asd";
+        String inputTime5 = "asd:asds";
 
-        // when
-        int result = LengthVideo.minutesToSeconds(lengthVideo);
+        // Act
+        int actualSeconds1 = LengthVideo.minutesToSeconds(inputTime1);
+        int actualSeconds2 = LengthVideo.minutesToSeconds(inputTime2);
+        int actualSeconds3 = LengthVideo.minutesToSeconds(inputTime3);
+        int actualSeconds4 = LengthVideo.minutesToSeconds(inputTime4);
+        int actualSeconds5 = LengthVideo.minutesToSeconds(inputTime5);
 
-        // then
-        assertThat(result).isEqualTo(-1);
-    }
-
-    @Test
-    @DisplayName("Пустая строка")
-    void emptyString() {
-        // given
-        String lengthVideo = "";
-
-        // when
-        int result = LengthVideo.minutesToSeconds(lengthVideo);
-
-        // then
-        assertThat(result).isEqualTo(-1);
-    }
-
-    @Test
-    @DisplayName("Строка без двоеточия")
-    void noColon() {
-        // given
-        String lengthVideo = "1234";
-
-        // when
-        int result = LengthVideo.minutesToSeconds(lengthVideo);
-
-        // then
-        assertThat(result).isEqualTo(-1);
+        // Assert
+        assertEquals(-1, actualSeconds1);
+        assertEquals(-1, actualSeconds2);
+        assertEquals(-1, actualSeconds3);
+        assertEquals(-1, actualSeconds4);
+        assertEquals(-1, actualSeconds5);
     }
 }

@@ -1,25 +1,33 @@
 package edu.hw1;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+// task2
 public final class DigitCounter {
-    public static int countDigits(int number) {
-        if (number == 0) {
-            return 1; // особый случай для числа 0
+    private static final Properties PROPERTIES = new Properties();
+
+    static {
+        try {
+            PROPERTIES.load(new FileInputStream("src/main/resources/config.properties"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-        int count = 0;
-        int absNumber = Math.abs(number);
-
-        while (absNumber > 0) {
-            absNumber /= 10;
-            count++;
-        }
-
-        return count;
     }
 
-    public static void main(String[] args) {
-        System.out.println(countDigits(4666)); // 4
-        System.out.println(countDigits(544)); // 3
-        System.out.println(countDigits(0)); // 1
+    private DigitCounter() {
+    }
+
+    public static int countDigits(int number) {
+        int testingNumber = number;
+        int numberOfDigits = 0;
+        int divider = Integer.parseInt(PROPERTIES.getProperty("divider"));
+        do {
+            numberOfDigits++;
+            testingNumber /= divider;
+        } while (testingNumber != 0);
+
+        return numberOfDigits;
     }
 }

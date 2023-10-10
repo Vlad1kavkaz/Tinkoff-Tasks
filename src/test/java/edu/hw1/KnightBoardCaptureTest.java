@@ -1,15 +1,15 @@
 package edu.hw1;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class KnightBoardCaptureTest {
+class ChessboardTest {
+
     @Test
-    @DisplayName("Test case 1 - Expected: true")
-    public void testKnightBoardCapture1() {
-        int[][] board = {
+    void testKnightBoardCapture_whenProvidedArrayWithTrueCondition_returnsTrue() {
+        // Arrange
+        int[][] chessboard1 = {
             {0, 0, 0, 1, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0},
             {0, 1, 0, 0, 0, 1, 0, 0},
@@ -20,13 +20,30 @@ public class KnightBoardCaptureTest {
             {0, 0, 0, 0, 1, 0, 0, 0}
         };
 
-        assertEquals(true, KnightBoardCapture.knightBoardCapture(board));
+        int[][] chessboard2 = {
+            {1, 0, 0, 1, 0, 1, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 1, 1, 1, 1, 0},
+            {1, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 1},
+            {0, 1, 0, 0, 1, 0, 0, 0}
+        };
+
+        // Act
+        boolean isNotCross1 = KnightBoardCapture.knightBoardCapture(chessboard1);
+        boolean isNotCross2 = KnightBoardCapture.knightBoardCapture(chessboard2);
+
+        // Assert
+        assertTrue(isNotCross1);
+        assertTrue(isNotCross2);
     }
 
     @Test
-    @DisplayName("Test case 2 - Expected: false")
-    public void testKnightBoardCapture2() {
-        int[][] board = {
+    void testKnightBoardCapture_whenProvidedArrayWithFalseCondition_returnsFalse() {
+        // Arrange
+        int[][] chessboard1 = {
             {1, 0, 1, 0, 1, 0, 1, 0},
             {0, 1, 0, 1, 0, 1, 0, 1},
             {0, 0, 0, 0, 1, 0, 1, 0},
@@ -37,13 +54,7 @@ public class KnightBoardCaptureTest {
             {0, 0, 0, 1, 0, 1, 0, 1}
         };
 
-        assertEquals(false, KnightBoardCapture.knightBoardCapture(board));
-    }
-
-    @Test
-    @DisplayName("Test case 3 - Expected: false")
-    public void testKnightBoardCapture3() {
-        int[][] board = {
+        int[][] chessboard2 = {
             {0, 0, 0, 0, 1, 0, 0, 0},
             {0, 0, 0, 0, 0, 1, 0, 0},
             {0, 0, 0, 1, 0, 0, 0, 0},
@@ -54,6 +65,12 @@ public class KnightBoardCaptureTest {
             {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        assertEquals(false, KnightBoardCapture.knightBoardCapture(board));
+        // Act
+        boolean isNotCross1 = KnightBoardCapture.knightBoardCapture(chessboard1);
+        boolean isNotCross2 = KnightBoardCapture.knightBoardCapture(chessboard2);
+
+        // Assert
+        assertFalse(isNotCross1);
+        assertFalse(isNotCross2);
     }
 }

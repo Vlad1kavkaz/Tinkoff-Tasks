@@ -1,39 +1,29 @@
 package edu.hw1;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
 
-public class DigitCounterTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+class NumbersTest {
+
     @Test
-    @DisplayName("Количество цифр в числе")
-    void countDigits() {
-        // given
+    void testCountDigits_whenIntInput_returnsDigitCount() {
+        // Arrange
         int number1 = 4666;
         int number2 = 544;
         int number3 = 0;
+        int number4 = -100500;
 
-        // when
-        int result1 = DigitCounter.countDigits(number1);
-        int result2 = DigitCounter.countDigits(number2);
-        int result3 = DigitCounter.countDigits(number3);
+        // Act
+        int digitCount1 = DigitCounter.countDigits(number1);
+        int digitCount2 = DigitCounter.countDigits(number2);
+        int digitCount3 = DigitCounter.countDigits(number3);
+        int digitCount4 = DigitCounter.countDigits(number4);
 
-        // then
-        assertThat(result1).isEqualTo(4);
-        assertThat(result2).isEqualTo(3);
-        assertThat(result3).isEqualTo(1);
-    }
-
-    @Test
-    @DisplayName("Количество цифр в отрицательном числе")
-    void countDigitsNegativeNumber() {
-        // given
-        int number = -12345;
-
-        // when
-        int result = DigitCounter.countDigits(number);
-
-        // then
-        assertThat(result).isEqualTo(5);
+        // Assert
+        assertEquals(4, digitCount1);
+        assertEquals(3, digitCount2);
+        assertEquals(1, digitCount3);
+        assertEquals(6, digitCount4);
     }
 }

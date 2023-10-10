@@ -1,29 +1,51 @@
 package edu.hw1;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+// task1
 public final class LengthVideo {
+    private static final Properties PROPERTIES = new Properties();
 
-    public static int minutesToSeconds(String lengthVideo) {
-        int seconds = 0;
-        String[] parts = lengthVideo.split(":");
-
-        if (parts.length != 2) {
-            return -1; // некорректный формат строки, возвращаем -1
+    static {
+        try {
+            PROPERTIES.load(new FileInputStream("src/main/resources/config.properties"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-        int minutes = Integer.parseInt(parts[0]);
-        int sec = Integer.parseInt(parts[1]);
-
-        if (sec >= 60) {
-            return -1; // некорректное количество секунд, возвращаем -1
-        }
-
-        seconds = minutes * 60 + sec;
-        return seconds;
     }
 
-    public static void main(String[] argv) {
-        System.out.println(minutesToSeconds("01:00")); // 60
-        System.out.println(minutesToSeconds("13:56")); // 836
-        System.out.println(minutesToSeconds("10:60")); // -1
+    private LengthVideo() {
+    }
+
+    public static int minutesToSeconds(String time) {
+        String[] timeArray = time.split(":");
+
+        if (timeArray.length != 2) {
+            return -1;
+        }
+
+        int min;
+        int sec;
+
+        try {
+            min = Integer.parseInt(timeArray[0]);
+            sec = Integer.parseInt(timeArray[1]);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+
+        int maxNumberSecDisplay = Integer.parseInt(PROPERTIES.getProperty("max.number.sec.display"));
+
+        if (sec > maxNumberSecDisplay || sec < 0 || min < 0) {
+            return -1;
+        }
+
+        int secPerMin = Integer.parseInt(PROPERTIES.getProperty("sec.per.min"));
+
+        int resultSec = min * secPerMin + sec;
+
+        return resultSec;
     }
 }

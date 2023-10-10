@@ -1,33 +1,56 @@
 package edu.hw1;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
 
-public class IsNestableTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+class NestedArrayTest {
+
     @Test
-    @DisplayName("Вложенный массив")
-    void isNestable() {
-        //given
-        int[] arr11 = {1, 2, 3, 4};
-        int[] arr12 = {0, 6};
-        int[] arr21 = {3, 1};
-        int[] arr22 = {4, 0};
-        int[] arr31 = {9, 9, 8};
-        int[] arr32 = {8, 9};
-        int[] arr41 = {1, 2, 3, 4};
-        int[] arr42 = {2, 3};
+    void testIsNestable_whenNestableArraysInput_returnsTrue() {
+        // Arrange
+        int[] array1 = {1, 2, 3, 4};
+        int[] array2 = {0, 6};
+        int[] array3 = {3, 1};
+        int[] array4 = {4, 0};
 
-        //when
-        boolean result1 = IsNestable.isNestable(arr11, arr12);
-        boolean result2 = IsNestable.isNestable(arr21, arr22);
-        boolean result3 = IsNestable.isNestable(arr31, arr32);
-        boolean result4 = IsNestable.isNestable(arr41, arr42);
+        // Act
+        boolean isNestable1 = IsNestable.isNestable(array1, array2);
+        boolean isNestable2 = IsNestable.isNestable(array3, array4);
 
-        //then
-        assertThat(result1).isEqualTo(true);
-        assertThat(result2).isEqualTo(true);
-        assertThat(result3).isEqualTo(false);
-        assertThat(result4).isEqualTo(false);
+        // Assert
+        assertTrue(isNestable1);
+        assertTrue(isNestable2);
+
+    }
+
+    @Test
+    void testIsNestable_whenNonNestableArraysInput_returnsFalse() {
+        // Arrange
+        int[] array1 = {9, 9, 8};
+        int[] array2 = {8, 9};
+        int[] array3 = {1, 2, 3, 4};
+        int[] array4 = {2, 3};
+
+        // Act
+        boolean isNestable1 = IsNestable.isNestable(array1, array2);
+        boolean isNestable2 = IsNestable.isNestable(array3, array4);
+
+        // Assert
+        assertFalse(isNestable1);
+        assertFalse(isNestable2);
+    }
+
+    @Test
+    void testIsNestable_whenEmptyArraysInput_returnsFalse() {
+        // Arrange
+        int[] array1 = {};
+        int[] array2 = {1, 1, 4};
+
+        // Act
+        boolean isNestable = IsNestable.isNestable(array1, array2);
+
+        // Assert
+        assertFalse(isNestable);
     }
 }

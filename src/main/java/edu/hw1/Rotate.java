@@ -1,36 +1,61 @@
 package edu.hw1;
 
-public class Rotate {
-    public static void main(String[] args) {
-        int rotatedLeft = rotateLeft(16, 1);
-        int rotatedRight = rotateRight(8, 1);
-        int rotatedLeft2 = rotateLeft(17, 2);
+// task7
+public final class Rotate {
 
-        System.out.println(rotatedLeft); // Выводит 1
-        System.out.println(rotatedRight); // Выводит 4
-        System.out.println(rotatedLeft2); // Выводит 6
-    }
-
-    public static int rotateLeft(int n, int shift) {
-        String bits = Integer.toBinaryString(n);
-        if (bits.isEmpty() || bits.length() < shift) {
-            return n;
-        }
-        for (int i = 0; i < shift; i++) {
-            char firstChar = bits.charAt(0);
-            // Отсечение первого элемента и добавление его в конец строки
-            bits = bits.substring(1) + firstChar;
-        }
-        int result = Integer.parseInt(bits, 2);
-        return result;
+    private Rotate() {
     }
 
     public static int rotateRight(int n, int shift) {
-        int bits = Integer.SIZE;
-        shift = shift % bits;
-        if (shift == 0) {
-            return n;
+        if (n < 0 || shift < 0) {
+            throw new RuntimeException("Incorrect data provided for right rotate");
         }
-        return (n >>> shift) | (n << (bits - shift));
+
+        int position = -1;
+        int mold = n;
+
+        while (mold != 0) {
+            mold >>= 1;
+            position++;
+        }
+
+        mold = n;
+        int flag = 1 << position;
+
+        for (int i = 0; i < shift; i++) {
+            if (mold % 2 != 0) {
+                mold >>= 1;
+                mold = mold | flag;
+            } else {
+                mold >>= 1;
+            }
+        }
+        return mold;
+    }
+
+    public static int rotateLeft(int n, int shift) {
+        if (n < 0 || shift < 0) {
+            throw new RuntimeException("Incorrect data provided for left rotate");
+        }
+
+        int position = 0;
+        int mold = n;
+
+        while (mold != 0) {
+            mold >>= 1;
+            position++;
+        }
+
+        mold = n;
+        int flag = ~(1 << position);
+
+        for (int i = 0; i < shift; i++) {
+            mold <<= 1;
+            if (mold > n) {
+                mold = (mold & flag) + 1;
+            }
+        }
+
+        return mold;
     }
 }

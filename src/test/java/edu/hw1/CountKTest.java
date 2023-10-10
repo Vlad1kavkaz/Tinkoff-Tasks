@@ -1,61 +1,47 @@
 package edu.hw1;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class CountKTest {
+class PermanentKaprekarTest {
 
     @Test
-    @DisplayName("Test countK for number 3524")
-    public void testCountK3524() {
-        // given
-        int number = 3524;
+    void testCountK_whenProvidedValidNumber_returnsNumberIterations() {
+        // Arrange
+        int number1 = 6621;
+        int number2 = 6554;
+        int number3 = 1234;
+        int number4 = 1000;
+        int number5 = 9998;
 
-        // when
-        int result = CountK.countK(number);
+        // Act
+        int countIterations1 = CountK.countK(number1);
+        int countIterations2 = CountK.countK(number2);
+        int countIterations3 = CountK.countK(number3);
+        int countIterations4 = CountK.countK(number4);
+        int countIterations5 = CountK.countK(number5);
 
-        // then
-        assertEquals(3, result);
+        // Assert
+        assertEquals(5, countIterations1);
+        assertEquals(4, countIterations2);
+        assertEquals(3, countIterations3);
+        assertEquals(5, countIterations4);
+        assertEquals(5, countIterations5);
     }
 
     @Test
-    @DisplayName("Test countK for number 6621")
-    public void testCountK6621() {
-        // given
-        int number = 6621;
+    void testCountK_whenProvidedInvalidNumber_throwRuntimeException() {
+        // Arrange
+        int number1 = 999;
+        int number2 = 9999;
+        int number3 = 10000;
 
-        // when
-        int result = CountK.countK(number);
+        // Act
 
-        // then
-        assertEquals(5, result);
-    }
-
-    @Test
-    @DisplayName("Test countK for number 6554")
-    public void testCountK6554() {
-        // given
-        int number = 6554;
-
-        // when
-        int result = CountK.countK(number);
-
-        // then
-        assertEquals(4, result);
-    }
-
-    @Test
-    @DisplayName("Test countK for number 1234")
-    public void testCountK1234() {
-        // given
-        int number = 1234;
-
-        // when
-        int result = CountK.countK(number);
-
-        // then
-        assertEquals(3, result);
+        // Assert
+        assertThrows(RuntimeException.class, () -> CountK.countK(number1));
+        assertThrows(RuntimeException.class, () -> CountK.countK(number2));
+        assertThrows(RuntimeException.class, () -> CountK.countK(number3));
     }
 }
