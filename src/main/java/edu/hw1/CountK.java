@@ -23,9 +23,9 @@ public final class CountK {
     }
 
     public static int countK(int number) {
-        int lowerBound = Integer.parseInt(PROPERTIES.getProperty("lower.bound"));
-        int upperBound = Integer.parseInt(PROPERTIES.getProperty("upper.bound"));
-        int lastIndex = Integer.parseInt(PROPERTIES.getProperty("last.index"));
+        int lowerBound = Integer.parseInt(PROPERTIES.getProperty("value999.bound"));
+        int upperBound = Integer.parseInt(PROPERTIES.getProperty("value9999.bound"));
+        int lastIndex = Integer.parseInt(PROPERTIES.getProperty("num3.index"));
         if (number > lowerBound && number < upperBound) {
             String numberString = Integer.toString(number);
             for (int i = 1; i < numberString.length(); i++) {
@@ -36,12 +36,12 @@ public final class CountK {
                     throw new RuntimeException("All the numbers are the same");
                 }
             }
-            return countK(number, 0);
+            return calculateK(number, 0);
         }
         throw new RuntimeException("The boundaries of the incoming value are violated");
     }
 
-    private static int countK(int number, int callCount) {
+    private static int calculateK(int number, int callCount) {
         StringBuilder sb = new StringBuilder(Integer.toString(number));
 
         int minNumberDigits = Integer.parseInt(PROPERTIES.getProperty("min.number.digits"));
@@ -79,7 +79,7 @@ public final class CountK {
 
         int newCallCount = callCount + 1;
 
-        return countK(result, newCallCount);
+        return calculateK(result, newCallCount);
     }
 
 }

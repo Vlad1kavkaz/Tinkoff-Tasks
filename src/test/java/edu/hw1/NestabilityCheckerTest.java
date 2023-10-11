@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class NestedArrayTest {
+class NestabilityCheckerTest {
 
     @Test
     void testIsNestable_whenNestableArraysInput_returnsTrue() {
@@ -15,8 +15,8 @@ class NestedArrayTest {
         int[] array4 = {4, 0};
 
         // Act
-        boolean isNestable1 = IsNestable.isNestable(array1, array2);
-        boolean isNestable2 = IsNestable.isNestable(array3, array4);
+        boolean isNestable1 = NestabilityChecker.isNestable(array1, array2);
+        boolean isNestable2 = NestabilityChecker.isNestable(array3, array4);
 
         // Assert
         assertTrue(isNestable1);
@@ -33,8 +33,8 @@ class NestedArrayTest {
         int[] array4 = {2, 3};
 
         // Act
-        boolean isNestable1 = IsNestable.isNestable(array1, array2);
-        boolean isNestable2 = IsNestable.isNestable(array3, array4);
+        boolean isNestable1 = NestabilityChecker.isNestable(array1, array2);
+        boolean isNestable2 = NestabilityChecker.isNestable(array3, array4);
 
         // Assert
         assertFalse(isNestable1);
@@ -48,7 +48,7 @@ class NestedArrayTest {
         int[] array2 = {1, 1, 4};
 
         // Act
-        boolean isNestable = IsNestable.isNestable(array1, array2);
+        boolean isNestable = NestabilityChecker.isNestable(array1, array2);
 
         // Assert
         assertFalse(isNestable);

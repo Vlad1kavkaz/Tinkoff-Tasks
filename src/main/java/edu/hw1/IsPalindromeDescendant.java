@@ -8,7 +8,7 @@ public final class IsPalindromeDescendant {
 
     public static boolean isPalindromeDescendant(int number) {
         String string = Integer.toString(number);
-        String reversedString = new StringBuilder(Integer.toString(number)).reverse().toString();
+        String reversedString = new StringBuilder(string).reverse().toString();
 
         if (string.equals(reversedString) && string.length() > 1) {
             return true;

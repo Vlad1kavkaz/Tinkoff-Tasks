@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CyclicBitShiftTest {
+class RotateTest {
 
     @Test
     void testRotateRight_whenProvidedValidData_returnsNumber() {

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ChessboardTest {
+class KnightBoardCaptureTest {
 
     @Test
     void testKnightBoardCapture_whenProvidedArrayWithTrueCondition_returnsTrue() {

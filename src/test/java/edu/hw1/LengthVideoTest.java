@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MovieTest {
+class LengthVideoTest {
 
     @Test
     void testMinutesToSeconds_whenValidInput_returnsTotalSeconds() {

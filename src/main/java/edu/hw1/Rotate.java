@@ -6,11 +6,7 @@ public final class Rotate {
     private Rotate() {
     }
 
-    public static int rotateRight(int n, int shift) {
-        if (n < 0 || shift < 0) {
-            throw new RuntimeException("Incorrect data provided for right rotate");
-        }
-
+    public static int getPosition(int n) {
         int position = -1;
         int mold = n;
 
@@ -19,7 +15,17 @@ public final class Rotate {
             position++;
         }
 
-        mold = n;
+        return position;
+    }
+
+    public static int rotateRight(int n, int shift) {
+        if (n < 0 || shift < 0) {
+            throw new RuntimeException("Incorrect data provided for right rotate");
+        }
+
+        int position = getPosition(n);
+
+        int mold = n;
         int flag = 1 << position;
 
         for (int i = 0; i < shift; i++) {
@@ -30,8 +36,10 @@ public final class Rotate {
                 mold >>= 1;
             }
         }
+
         return mold;
     }
+
 
     public static int rotateLeft(int n, int shift) {
         if (n < 0 || shift < 0) {

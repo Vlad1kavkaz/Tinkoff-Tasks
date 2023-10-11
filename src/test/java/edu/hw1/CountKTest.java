@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PermanentKaprekarTest {
+class CountKTest {
 
     @Test
     void testCountK_whenProvidedValidNumber_returnsNumberIterations() {

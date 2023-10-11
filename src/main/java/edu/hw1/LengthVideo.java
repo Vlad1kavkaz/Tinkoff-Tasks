@@ -36,16 +36,12 @@ public final class LengthVideo {
             return -1;
         }
 
-        int maxNumberSecDisplay = Integer.parseInt(PROPERTIES.getProperty("max.number.sec.display"));
+        int secPerMin = Integer.parseInt(PROPERTIES.getProperty("sec.per.min"));
 
-        if (sec > maxNumberSecDisplay || sec < 0 || min < 0) {
+        if (sec >= secPerMin || sec < 0 || min < 0) {
             return -1;
         }
 
-        int secPerMin = Integer.parseInt(PROPERTIES.getProperty("sec.per.min"));
-
-        int resultSec = min * secPerMin + sec;
-
-        return resultSec;
+        return min * secPerMin + sec;
     }
 }
