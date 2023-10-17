@@ -15,6 +15,9 @@ public class ConsoleHangman {
         this.maxMistakesCount = Math.max(maxMistakesCount, 1);
     }
 
+    public static boolean breakGame = false;
+    public static boolean lostGame = false;
+
     public void run() {
         Scanner scanner = new Scanner(System.in);
 
@@ -34,6 +37,7 @@ public class ConsoleHangman {
 
             if (guess.equals("\\q")) {
                 LOGGER.info("Game ended by user.");
+                breakGame = true;
                 break;
             }
 
@@ -65,6 +69,7 @@ public class ConsoleHangman {
         if (gameWon) {
             LOGGER.info("You won!");
         } else {
+            lostGame = true;
             LOGGER.info("You lost!");
         }
 

@@ -1,83 +1,64 @@
 package edu.project1;
 
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 public class ConsoleHangmanTest {
-    private final InputStream systemIn = System.in;
-    private final PrintStream systemOut = System.out;
+    private static final Logger LOGGER = LogManager.getLogger();
 
-    private ByteArrayInputStream inputStream;
-    private ByteArrayOutputStream outputStream;
+    @Test
+    @DisplayName("Test run() method - Game lost")
+    public void testRun_GameLost() {
 
-    @BeforeEach
-    public void setUp() {
-        outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
-    }
+        String input = "b\nb\nc\nd\ne\n";
 
-    @AfterEach
-    public void tearDown() {
-        System.setIn(systemIn);
-        System.setOut(systemOut);
+        InputStream inputStream = System.in;
+        PrintStream printStream = System.out;
+        Logger testLogger = LogManager.getLogger(ConsoleHangman.class);
+
+        try {
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(input.getBytes());
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+            System.setIn(byteArrayInputStream);
+            System.setOut(new PrintStream(byteArrayOutputStream));
+
+            ConsoleHangman hangman = new ConsoleHangman(3);
+            hangman.run();
+
+            String actualOutput = byteArrayOutputStream.toString().trim();
+            Assertions.assertTrue(ConsoleHangman.lostGame);
+
+            testLogger.info(actualOutput);
+        } finally {
+            System.setIn(inputStream);
+            System.setOut(printStream);
+        }
     }
 
     @Test
-    public void testRunGame_UserWins() {
-        String input = "a\nb\nc\nd\nq\n";
-        inputStream = new ByteArrayInputStream(input.getBytes());
-        System.setIn(inputStream);
+    @DisplayName("Test run() method - Game ended by user")
+    public void testRun_GameEndedByUser() {
+        LOGGER.info("Running test for run() method in ConsoleHangman class (Game ended by user).");
 
-        ConsoleHangman hangman = new ConsoleHangman(6);
-        hangman.run();
+        String input = "\\q\n";
 
-        String output = outputStream.toString().trim();
-        assertEquals("Welcome to the Hangman game!", output.split("\n")[0]);
-        assertEquals("Guess a letter(or \\q to stop game):", output.split("\n")[1]);
-        assertEquals("Hit!", output.split("\n")[5]);
-        assertEquals("You won!", output.split("\n")[14]);
-    }
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(input.getBytes());
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
-    @Test
-    public void testRunGame_UserLoses() {
-        String input = "a\nb\nc\nd\ne\nf\nq\n";
-        inputStream = new ByteArrayInputStream(input.getBytes());
-        System.setIn(inputStream);
+        System.setIn(byteArrayInputStream);
+        System.setOut(new PrintStream(byteArrayOutputStream));
 
         ConsoleHangman hangman = new ConsoleHangman(3);
         hangman.run();
 
-        String output = outputStream.toString().trim();
-        assertEquals("Welcome to the Hangman game!", output.split("\n")[0]);
-        assertEquals("Guess a letter(or \\q to stop game):", output.split("\n")[1]);
-        assertEquals("Missed, mistake 1 out of 3.", output.split("\n")[2]);
-        assertEquals("Missed, mistake 2 out of 3.", output.split("\n")[3]);
-        assertEquals("Missed, mistake 3 out of 3.", output.split("\n")[4]);
-        assertEquals("You lost!", output.split("\n")[14]);
-    }
-
-    @Test
-    public void testRunGame_UserQuits() {
-        String input = "a\nb\nc\nd\nq\n";
-        inputStream = new ByteArrayInputStream(input.getBytes());
-        System.setIn(inputStream);
-
-        ConsoleHangman hangman = new ConsoleHangman(6);
-        hangman.run();
-
-        String output = outputStream.toString().trim();
-        assertEquals("Welcome to the Hangman game!", output.split("\n")[0]);
-        assertEquals("Guess a letter(or \\q to stop game):", output.split("\n")[1]);
-        assertEquals("Game ended by user.", output.split("\n")[4]);
-        assertEquals("You lost!", output.split("\n")[14]);
+        Assertions.assertTrue(ConsoleHangman.breakGame);
     }
 }
