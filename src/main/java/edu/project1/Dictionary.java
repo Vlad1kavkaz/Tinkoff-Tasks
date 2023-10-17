@@ -19,6 +19,10 @@ public class Dictionary {
         "courtesy",
     };
 
+    public static String[] getWords() {
+        return WORDS;
+    }
+
     private Dictionary() {
     }
 

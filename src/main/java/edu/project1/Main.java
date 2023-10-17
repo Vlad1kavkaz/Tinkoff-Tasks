@@ -13,7 +13,7 @@ public final class Main {
         consoleHangman.run();
     }
 
-    private static int getMaxMistakesCount() throws IOException {
+    public static int getMaxMistakesCount() throws IOException {
         Properties props = new Properties();
         props.load(new FileInputStream("src/main/resources/game.properties"));
         return Integer.parseInt(props.getProperty("MAX_MISTAKES_COUNT", "1"));
