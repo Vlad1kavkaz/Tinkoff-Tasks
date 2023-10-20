@@ -49,8 +49,9 @@ public sealed interface Expr {
 
         @Override
         public String toString() {
-            return String.valueOf(term1) + " + " + String.valueOf(term2);
+            return "(" + String.valueOf(term1) + " + " + String.valueOf(term2) + ")";
         }
+
     }
 
     public record Multiplication(Expr multiplier1, Expr multiplier2) implements Expr {

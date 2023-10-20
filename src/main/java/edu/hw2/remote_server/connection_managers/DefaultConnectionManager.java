@@ -5,12 +5,14 @@ import edu.hw2.remote_server.connections.FaultyConnection;
 import edu.hw2.remote_server.connections.StableConnection;
 
 public class DefaultConnectionManager implements ConnectionManager {
-    private double probabilityOfFailure;
-    private double connectionProbabilityOfFailure;
     private static final double DEFAULT_PROBABILITY_OF_FAILURE = 0.25;
     private static final double DEFAULT_CONNECTION_PROBABILITY_OF_FAILURE = 0.25;
     private static final double TRUE_PROBABILITY = 1.0;
     private static final double FALSE_PROBABILITY = 0.0;
+
+    private double probabilityOfFailure;
+    private double connectionProbabilityOfFailure;
+
 
     public DefaultConnectionManager() {
         this.probabilityOfFailure = DEFAULT_PROBABILITY_OF_FAILURE;

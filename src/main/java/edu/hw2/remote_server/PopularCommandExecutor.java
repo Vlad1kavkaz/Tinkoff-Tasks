@@ -18,20 +18,17 @@ public final class PopularCommandExecutor {
 
     public void tryExecute(String command) {
         int attempts = 0;
-        Throwable cause = null;
         while (attempts < maxAttempts) {
             try (Connection connection = manager.getConnection()) {
                 connection.execute(command);
-                break;
+                return;
             } catch (ConnectionException e) {
-                cause = e;
-                ++attempts;
+                attempts++;
+                throw new ConnectionException(e);
             } catch (Exception e) {
                 throw new RuntimeException("Unexpected exception!");
             }
         }
-        if (attempts >= maxAttempts) {
-            throw new ConnectionException(cause);
-        }
     }
+
 }

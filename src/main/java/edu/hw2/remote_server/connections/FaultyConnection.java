@@ -1,3 +1,4 @@
+
 package edu.hw2.remote_server.connections;
 
 import edu.hw2.remote_server.ConnectionException;
@@ -27,7 +28,7 @@ public class FaultyConnection implements Connection {
         if (probability < probabilityOfFailure) {
             throw new ConnectionException();
         }
-        LOGGER.info(String.format("Command '%s' executed successfully!", command));
+        LOGGER.info("Command '{}' executed successfully!", command);
     }
 
     public void setProbabilityOfFailure(double probabilityOfFailure) {

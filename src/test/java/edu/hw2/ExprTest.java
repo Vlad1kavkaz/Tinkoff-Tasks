@@ -28,6 +28,30 @@ public class ExprTest {
     }
 
     @Test
+    @DisplayName("Проверка метода toString() для Constant")
+    void constantToString() {
+        Expr constant = new Constant(5);
+
+        String result = constant.toString();
+
+        assertThat(result).isEqualTo("5.0");
+    }
+
+    @Test
+    @DisplayName("Проверка метода toString() для Negate")
+    void negateToString() {
+        Expr constant = new Constant(5);
+        Expr negate = new Negate(constant);
+
+        String result = negate.toString();
+
+        assertThat(result).isEqualTo("-5.0");
+    }
+
+// Аналогично можно добавить тесты для остальных реализаций интерфейса Expr
+
+
+    @Test
     @DisplayName("Два отрицания ничего не дают")
     void twoNegativeExpr() {
         Expr two = new Constant(2.0);
