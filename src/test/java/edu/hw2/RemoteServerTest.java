@@ -41,6 +41,27 @@ public class RemoteServerTest {
 
     @ParameterizedTest
     @MethodSource("maxAttempts")
+    @DisplayName("Вероятности ошибки подключения и подключателя нулевые. ConnectionManager обычный.")
+    void testExecutorWithDefaultManager(int maxAttempt) {
+        double probabilityOfFailure = 0.0;
+        double connectionProbabilityOfFailure = 0.0;
+        ConnectionManager manager = new DefaultConnectionManager(
+            probabilityOfFailure,
+            connectionProbabilityOfFailure
+        );
+        PopularCommandExecutor executor = new PopularCommandExecutor(
+            manager,
+            maxAttempt
+        );
+        String command = "echo hello";
+
+        assertThatCode(() -> executor.tryExecute(command))
+            .doesNotThrowAnyException();
+    }
+
+
+    @ParameterizedTest
+    @MethodSource("maxAttempts")
     @DisplayName("Вероятности ошибки подключения и подключателя равны единице. ConnectionManager обычный.")
     void testExecutorWithDefaultManagerWhenFailed(int maxAttempt) {
         double probabilityOfFailure = 1.0;

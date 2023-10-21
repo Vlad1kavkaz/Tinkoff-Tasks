@@ -16,7 +16,7 @@ public final class PopularCommandExecutor {
         tryExecute("apt update && apt upgrade -y");
     }
 
-    public void tryExecute(String command) {
+    public void tryExecute(String command) throws ConnectionException {
         int attempts = 0;
         while (attempts < maxAttempts) {
             try (Connection connection = manager.getConnection()) {
@@ -24,11 +24,14 @@ public final class PopularCommandExecutor {
                 return;
             } catch (ConnectionException e) {
                 attempts++;
-                throw new ConnectionException(e);
+                if (attempts >= maxAttempts) {
+                    throw new ConnectionException(e);
+                }
             } catch (Exception e) {
-                throw new RuntimeException("Unexpected exception!");
+                throw new RuntimeException("Unexpected exception!", e);
             }
         }
     }
+
 
 }
