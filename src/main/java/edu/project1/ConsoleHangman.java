@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
 
 public class ConsoleHangman {
     private final static Logger LOGGER = LogManager.getLogger();
@@ -15,12 +14,18 @@ public class ConsoleHangman {
         this.maxMistakesCount = Math.max(maxMistakesCount, 1);
     }
 
-    public static boolean breakGame = false;
-    public static boolean lostGame = false;
+    private static boolean breakGame = false;
+    private static boolean lostGame = false;
+
+    public static boolean getBreakGame() {
+        return breakGame;
+    }
+
+    public static boolean getLostGame() {
+        return lostGame;
+    }
 
     public void run() {
-        Scanner scanner = new Scanner(System.in);
-
         LOGGER.info("Welcome to the Hangman game!");
 
         var word = Dictionary.getRandomWord();
@@ -31,52 +36,54 @@ public class ConsoleHangman {
         int mistakes = 0;
         boolean gameWon = false;
 
-        while (mistakes < maxMistakesCount && !gameWon) {
-            LOGGER.info("Guess a letter(or \\q to stop game):");
-            String guess = scanner.nextLine();
+        try (Scanner scanner = new Scanner(System.in)) {
+            while (mistakes < maxMistakesCount && !gameWon) {
+                LOGGER.info("Guess a letter(or \\q to stop game):");
+                String guess = scanner.nextLine();
 
-            if (guess.equals("\\q")) {
-                LOGGER.info("Game ended by user.");
-                breakGame = true;
-                break;
+                if (guess.equals("\\q")) {
+                    LOGGER.info("Game ended by user.");
+                    breakGame = true;
+                    break;
+                }
+
+                if (!isValidGuess(guess)) {
+                    LOGGER.info("Please enter a single letter.");
+                    continue;
+                }
+                char guessChar = guess.charAt(0);
+
+                if (indexes.containsKey(guessChar)) {
+                    LOGGER.info("Hit!");
+
+                    for (int index : indexes.get(guessChar)) {
+                        letters[index] = guessChar;
+                    }
+                    indexes.remove(guessChar);
+
+                    if (indexes.isEmpty()) {
+                        gameWon = true;
+                    }
+                } else {
+                    mistakes++;
+                    LOGGER.info("Missed, mistake " + mistakes + " out of " + maxMistakesCount + ".");
+                }
+
+                LOGGER.info("The word: " + String.valueOf(letters));
             }
 
-            if (!isValidGuess(guess)) {
-                LOGGER.info("Please enter a single letter.");
-                continue;
-            }
-            char guessChar = guess.charAt(0);
-
-            if (indexes.containsKey(guessChar)) {
-                LOGGER.info("Hit!");
-
-                for (int index : indexes.get(guessChar)) {
-                    letters[index] = guessChar;
-                }
-                indexes.remove(guessChar);
-
-                if (indexes.isEmpty()) {
-                    gameWon = true;
-                }
+            if (gameWon) {
+                LOGGER.info("You won!");
             } else {
-                mistakes++;
-                LOGGER.info("Missed, mistake " + mistakes + " out of " + maxMistakesCount + ".");
+                lostGame = true;
+                LOGGER.info("You lost!");
             }
-
-            LOGGER.info("The word: " + String.valueOf(letters));
+        } catch (Exception e) {
+            LOGGER.error("An error occurred: " + e.getMessage());
         }
-
-        if (gameWon) {
-            LOGGER.info("You won!");
-        } else {
-            lostGame = true;
-            LOGGER.info("You lost!");
-        }
-
-        scanner.close();
     }
 
-    private static boolean isValidGuess(@NotNull String guess) {
+    private static boolean isValidGuess(String guess) {
         return guess.length() == 1 && guess.matches("[a-zA-Z]");
     }
 }

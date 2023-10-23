@@ -34,7 +34,7 @@ public class ConsoleHangmanTest {
             hangman.run();
 
             String actualOutput = byteArrayOutputStream.toString().trim();
-            Assertions.assertTrue(ConsoleHangman.lostGame);
+            Assertions.assertTrue(ConsoleHangman.getLostGame());
 
             testLogger.info(actualOutput);
         } finally {
@@ -59,6 +59,6 @@ public class ConsoleHangmanTest {
         ConsoleHangman hangman = new ConsoleHangman(3);
         hangman.run();
 
-        Assertions.assertTrue(ConsoleHangman.breakGame);
+        Assertions.assertTrue(ConsoleHangman.getBreakGame());
     }
 }

@@ -6,6 +6,7 @@ import java.util.Set;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DictionaryTest {
     private Dictionary dictionary;
@@ -35,4 +36,17 @@ public class DictionaryTest {
 
         Assertions.assertThat(actualIndexes).isEqualTo(expectedIndexes);
     }
+
+    @Test
+    @DisplayName("Добавление нового слова")
+    void addWords_1() {
+        String word1 = "NewWord1";
+        String word2 = "NewWord2";
+        int len1 = Dictionary.getWORDSLength()+2;
+        Dictionary.addWords(word1, word2);
+        int len2 = Dictionary.getWORDSLength();
+        assertEquals(len1, len2);
+    }
+
+
 }
