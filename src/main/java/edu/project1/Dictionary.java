@@ -1,18 +1,20 @@
 package edu.project1;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Random;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.logging.Logger;
 
 public class Dictionary {
 
     private Dictionary() {
     }
 
-    private static String[] WORDS = new String[] {
+    private static String[] words = new String[] {
         "emphasis",
         "different",
         "hall",
@@ -24,43 +26,46 @@ public class Dictionary {
         "confine",
         "courtesy",
     };
+    private static final Logger logger = Logger.getLogger(Dictionary.class.getName());
 
     public static void addWordsFromFile(String filename) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] words = line.split("\\s+"); // разделение строки на слова, предполагая, что слова разделены пробелами
+                String[] words = line.split("\\s+");
                 addWords(words);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.severe("An error occurred: " + e.getMessage());
+            // Логируйте информацию об исключении, включая сообщение и стек вызовов
+            logger.severe("Stack trace: " + Arrays.toString(e.getStackTrace()));
         }
     }
 
-    public static void addWords(String... words) {
-        int originalLength = WORDS.length;
+    public static void addWords(String... words_add) {
+        int originalLength = words.length;
         int newLength =
-            originalLength + words.length;
+            originalLength + words_add.length;
 
         String[] updatedWords = new String[newLength];
 
-        System.arraycopy(WORDS, 0, updatedWords, 0, originalLength);
+        System.arraycopy(words, 0, updatedWords, 0, originalLength);
 
-        System.arraycopy(words, 0, updatedWords, originalLength, words.length);
+        System.arraycopy(words_add, 0, updatedWords, originalLength, words_add.length);
 
-        WORDS = updatedWords;
+        words = updatedWords;
     }
 
     public static int getWORDSLength() {
-        return WORDS.length;
+        return words.length;
     }
 
     public static String[] getWords() {
-        return WORDS;
+        return words;
     }
 
     public static String getRandomWord() {
-        return WORDS[new Random().nextInt(WORDS.length)];
+        return words[new Random().nextInt(words.length)];
     }
 
     public static HashMap<Character, HashSet<Integer>> getIndexes(String word) {
