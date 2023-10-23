@@ -16,6 +16,7 @@ public class ConsoleHangman {
 
     private static boolean breakGame = false;
     private static boolean lostGame = false;
+    private static Scanner scanner = new Scanner(System.in);
 
     public static boolean getBreakGame() {
         return breakGame;
@@ -36,7 +37,7 @@ public class ConsoleHangman {
         int mistakes = 0;
         boolean gameWon = false;
 
-        try (Scanner scanner = new Scanner(System.in)) {
+        try {
             while (mistakes < maxMistakesCount && !gameWon) {
                 LOGGER.info("Guess a letter(or \\q to stop game):");
                 String guess = scanner.nextLine();
