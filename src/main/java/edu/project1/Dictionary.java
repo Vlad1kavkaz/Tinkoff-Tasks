@@ -26,32 +26,32 @@ public class Dictionary {
         "confine",
         "courtesy",
     };
-    private static final Logger logger = Logger.getLogger(Dictionary.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Dictionary.class.getName());
 
     public static void addWordsFromFile(String filename) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] words = line.split("\\s+");
-                addWords(words);
+                String[] lineWords = line.split("\\s+");
+                addWords(lineWords);
             }
         } catch (IOException e) {
-            logger.severe("An error occurred: " + e.getMessage());
+            LOGGER.severe("An error occurred: " + e.getMessage());
             // Логируйте информацию об исключении, включая сообщение и стек вызовов
-            logger.severe("Stack trace: " + Arrays.toString(e.getStackTrace()));
+            LOGGER.severe("Stack trace: " + Arrays.toString(e.getStackTrace()));
         }
     }
 
-    public static void addWords(String... words_add) {
+    public static void addWords(String... wordsAdd) {
         int originalLength = words.length;
         int newLength =
-            originalLength + words_add.length;
+            originalLength + wordsAdd.length;
 
         String[] updatedWords = new String[newLength];
 
         System.arraycopy(words, 0, updatedWords, 0, originalLength);
 
-        System.arraycopy(words_add, 0, updatedWords, originalLength, words_add.length);
+        System.arraycopy(wordsAdd, 0, updatedWords, originalLength, wordsAdd.length);
 
         words = updatedWords;
     }
