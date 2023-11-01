@@ -8,7 +8,6 @@ public class Task3 {
 
     public static <T> HashMap<T, Integer> freqDict(T[] objects) {
         HashMap<T, Integer> resultFrequencyDict = new HashMap<>();
-
         for (T obj : objects) {
             if (resultFrequencyDict.containsKey(obj)) {
                 resultFrequencyDict.put(obj, resultFrequencyDict.get(obj) + 1);
@@ -16,7 +15,6 @@ public class Task3 {
                 resultFrequencyDict.put(obj, 1);
             }
         }
-
         return resultFrequencyDict;
     }
 }

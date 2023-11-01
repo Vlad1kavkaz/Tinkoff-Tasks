@@ -36,6 +36,7 @@ class Task1Test {
     @ParameterizedTest
     @MethodSource({"strings", "stringsWithSpecialCases"})
     void testAtBash(String original, String expected) {
-        assertThat(Task1.atbash(original)).isEqualTo(expected);
+        assertThat(Task1.encryptViaAtbash(original)).isEqualTo(expected);
     }
+
 }

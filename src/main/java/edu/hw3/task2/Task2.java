@@ -12,43 +12,48 @@ public class Task2 {
         ArrayList<String> result = new ArrayList<>();
         ArrayDeque<Character> stack = new ArrayDeque<>();
         StringBuilder currentCluster = new StringBuilder();
-        Character lastBracket;
 
         for (char bracket : bracketSequence.toCharArray()) {
             switch (bracket) {
                 case '(':
-                    stack.addLast(bracket);
-                    currentCluster.append(bracket);
+                    handleOpeningBracket(stack, currentCluster, result, bracket);
                     break;
                 case ')':
-                    if (stack.isEmpty()) {
-                        throw new IllegalArgumentException("Incorrect bracket sequence: no paired opening bracket");
-                    }
-                    lastBracket = stack.pollLast();
-
-                    if (lastBracket.equals('(')) {
-                        currentCluster.append(bracket);
-                    } else {
-                        throw new IllegalArgumentException("Incorrect bracket sequence: invalid opening bracket");
-                    }
-
-                    // If we completed current cluster, then add it to result and clear string builder for cluster
-                    if (stack.isEmpty()) {
-                        result.add(currentCluster.toString());
-                        currentCluster = new StringBuilder();
-                    }
-
+                    handleClosingBracket(stack, currentCluster, result, bracket);
                     break;
                 default:
-                    throw new IllegalArgumentException(
-                        "Incorrect bracket sequence: Non bracket symbol appeared in bracket sequence");
+                    throw new IllegalArgumentException("Incorrect bracket sequence: Non bracket symbol appeared in bracket sequence");
             }
         }
 
         if (!stack.isEmpty()) {
-            throw new IllegalArgumentException("Incorrect bracket sequence: some opening bracket remain without pair");
+            throw new IllegalArgumentException("Incorrect bracket sequence: some opening bracket remains without a pair");
         }
 
         return result;
+    }
+
+    private static void handleOpeningBracket(ArrayDeque<Character> stack, StringBuilder currentCluster, ArrayList<String> result, char bracket) {
+        stack.addLast(bracket);
+        currentCluster.append(bracket);
+    }
+
+    private static void handleClosingBracket(ArrayDeque<Character> stack, StringBuilder currentCluster, ArrayList<String> result, char bracket) {
+        if (stack.isEmpty()) {
+            throw new IllegalArgumentException("Incorrect bracket sequence: no paired opening bracket");
+        }
+        Character lastBracket = stack.pollLast();
+
+        if (lastBracket.equals('(')) {
+            currentCluster.append(bracket);
+        } else {
+            throw new IllegalArgumentException("Incorrect bracket sequence: invalid opening bracket");
+        }
+
+        // If we completed the current cluster, then add it to the result and clear the string builder for the cluster
+        if (stack.isEmpty()) {
+            result.add(currentCluster.toString());
+            currentCluster.setLength(0); // Clear the StringBuilder
+        }
     }
 }
