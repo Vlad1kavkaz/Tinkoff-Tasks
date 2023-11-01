@@ -22,23 +22,29 @@ public class Task2 {
                     handleClosingBracket(stack, currentCluster, result, bracket);
                     break;
                 default:
-                    throw new IllegalArgumentException("Incorrect bracket sequence: Non bracket symbol appeared in bracket sequence");
+                    throw new IllegalArgumentException("Invalid bracket sequence");
             }
         }
 
         if (!stack.isEmpty()) {
-            throw new IllegalArgumentException("Incorrect bracket sequence: some opening bracket remains without a pair");
+            throw new IllegalArgumentException("Unmatched opening brackets");
         }
 
         return result;
     }
 
-    private static void handleOpeningBracket(ArrayDeque<Character> stack, StringBuilder currentCluster, ArrayList<String> result, char bracket) {
+    private static void handleOpeningBracket(ArrayDeque<Character> stack,
+        StringBuilder currentCluster,
+        ArrayList<String> result,
+        char bracket) {
         stack.addLast(bracket);
         currentCluster.append(bracket);
     }
 
-    private static void handleClosingBracket(ArrayDeque<Character> stack, StringBuilder currentCluster, ArrayList<String> result, char bracket) {
+    private static void handleClosingBracket(ArrayDeque<Character> stack,
+        StringBuilder currentCluster,
+        ArrayList<String> result,
+        char bracket) {
         if (stack.isEmpty()) {
             throw new IllegalArgumentException("Incorrect bracket sequence: no paired opening bracket");
         }
