@@ -50,7 +50,7 @@ public final class Maze {
         if (cell.row() < height - 1) {
             return cellAt(cell.row() + 1, cell.col());
         }
-        throw new NoSuchElementException("No cell below");
+        return null;
     }
 
 
