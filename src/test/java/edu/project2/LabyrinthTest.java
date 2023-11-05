@@ -2,13 +2,11 @@ package edu.project2;
 import edu.project2.generator.RecursiveBacktrackingGenerator;
 import edu.project2.maze.Cell;
 import edu.project2.renderer.ConsoleRenderer;
-import edu.project2.renderer.Renderer;
 import edu.project2.solver.AStarSolver;
 import edu.project2.solver.BFSolver;
 import edu.project2.solver.DFSolver;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import java.util.NoSuchElementException;
 
@@ -106,6 +104,8 @@ public class LabyrinthTest {
 
         //Проверка, что поиск решения прошел успешно
         var astarSolver = new AStarSolver();
+        assert start != null;
+        assert end != null;
         var result = astarSolver.solve(maze, start, end);
         assertThat(result).isNotNull();
     }

@@ -3,7 +3,6 @@ package edu.project2.maze;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public final class Maze {
     private final int height;
