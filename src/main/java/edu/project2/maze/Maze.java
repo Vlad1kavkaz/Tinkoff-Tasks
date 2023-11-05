@@ -3,6 +3,7 @@ package edu.project2.maze;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public final class Maze {
     private final int height;
@@ -10,10 +11,15 @@ public final class Maze {
     private final Cell[][] grid;
 
     public Maze(int height, int width, Cell[][] grid) {
+        if (height <= 0 || width <= 0 || grid == null || grid.length != height || grid[0].length != width) {
+            throw new IllegalArgumentException("Invalid input parameters");
+        }
+
         this.height = height;
         this.width = width;
         this.grid = grid;
     }
+
 
     public Cell cellAt(int i, int j) {
         return grid[i][j];
@@ -44,8 +50,9 @@ public final class Maze {
         if (cell.row() < height - 1) {
             return cellAt(cell.row() + 1, cell.col());
         }
-        return null;
+        throw new NoSuchElementException("No cell below");
     }
+
 
     public List<Cell> getNeighbours(Cell cell) {
         var result = new ArrayList<Cell>();

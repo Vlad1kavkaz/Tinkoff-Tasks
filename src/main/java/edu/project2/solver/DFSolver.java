@@ -29,6 +29,6 @@ public class DFSolver implements Solver {
             }
         }
 
-        return null;
+        return List.of();
     }
 }

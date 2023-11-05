@@ -29,6 +29,6 @@ public class BFSolver implements Solver {
             }
         }
 
-        return null;
+        return List.of();
     }
 }

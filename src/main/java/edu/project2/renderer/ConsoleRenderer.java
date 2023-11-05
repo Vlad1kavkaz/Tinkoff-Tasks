@@ -4,7 +4,7 @@ import edu.project2.maze.Cell;
 import edu.project2.maze.Maze;
 import java.util.List;
 
-public class ConsoleRenderer extends Renderer {
+public class ConsoleRenderer implements Renderer {
     private final static char WALL = (char) 9633;
     private final static char WALL_HORIZONTAL = '-'; //'⎯';
     private final static char WALL_VERTICAL = '|';

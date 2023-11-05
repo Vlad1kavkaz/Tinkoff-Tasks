@@ -4,12 +4,12 @@ import edu.project2.maze.Cell;
 import edu.project2.maze.Maze;
 import java.util.List;
 
-public class Renderer {
-    String render(Maze maze) {
-        return null;
+public interface Renderer {
+    default String render(Maze maze) {
+        return List.of().toString();
     }
 
-    String render(Maze maze, List<Cell> path) {
-        return null;
+    default String render(Maze maze, List<Cell> path) {
+        return List.of().toString();
     }
 }
