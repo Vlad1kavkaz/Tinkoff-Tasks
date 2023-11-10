@@ -14,11 +14,15 @@ import java.util.logging.Logger;
 
 public class FridayThe13th {
 
-    private static final Logger logger = Logger.getLogger(FridayThe13th.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(FridayThe13th.class.getName());
     private static final String CONFIG_FILE = "/application.properties";
     private static final String DAY_OF_MONTH_KEY = "dayOfMonth";
 
     private static int dayOfMonth;
+
+    private FridayThe13th() {
+
+    }
 
     static {
         loadConfig();
@@ -30,7 +34,7 @@ public class FridayThe13th {
             prop.load(input);
             dayOfMonth = Integer.parseInt(prop.getProperty(DAY_OF_MONTH_KEY));
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Error loading configuration", e);
+            LOGGER.log(Level.SEVERE, "Error loading configuration", e);
             // Handle the exception as needed
         }
     }
