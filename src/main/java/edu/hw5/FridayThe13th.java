@@ -13,11 +13,13 @@ public class FridayThe13th {
 
     }
 
+    private static final int DAY_OF_MONTH_13 = 13;
+
     public static List<LocalDate> findFridayThe13ths(int year) {
         List<LocalDate> fridayThe13ths = new ArrayList<>();
 
         for (Month month : Month.values()) {
-            LocalDate date = LocalDate.of(year, month, 13);
+            LocalDate date = LocalDate.of(year, month, DAY_OF_MONTH_13);
             if (date.getDayOfWeek() == DayOfWeek.FRIDAY) {
                 fridayThe13ths.add(date);
             }
