@@ -11,11 +11,6 @@ public class FileCloner {
 
     private static final Logger LOGGER = Logger.getLogger(FileCloner.class.getName());
 
-    public static void main(String[] args) {
-        String filePath = "путь_к_вашему_файлу/Tinkoff Bank Biggest Secret.txt";
-        cloneFile(filePath);
-    }
-
     public static void cloneFile(String filePath) {
         File originalFile = new File(filePath);
         String directory = originalFile.getParent();
@@ -43,6 +38,9 @@ public class FileCloner {
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Ошибка при копировании файла", e);
         }
+    }
+    private FileCloner() {
+
     }
 }
 
