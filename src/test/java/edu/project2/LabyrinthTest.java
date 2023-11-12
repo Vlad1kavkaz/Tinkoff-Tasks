@@ -8,6 +8,7 @@ import edu.project2.solver.DFSolver;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 import org.junit.jupiter.api.Test;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 public class LabyrinthTest {
@@ -38,11 +39,30 @@ public class LabyrinthTest {
             }
         }
 
-        //Проверка, что поиск решения прошел успешно
+        // Проверка, что поиск решения прошел успешно
         var bfsolver = new BFSolver();
         var result = bfsolver.solve(maze, start, end);
+
+        // Проверка, что результат не null
         assertThat(result).isNotNull();
+
+        // Проверка, что результат является валидным путем в лабиринте
+        validatePath(result, start, end);
     }
+
+    // Метод для проверки валидности пути в лабиринте
+    private void validatePath(List<Cell> path, Cell start, Cell end) {
+        // Проверка, что начало и конец пути соответствуют заданным ячейкам
+        assertThat(path).contains(start, end);
+
+        // Проверка, что каждая ячейка пути является проходом
+        for (var cell : path) {
+            assertThat(cell.type()).isEqualTo(Cell.Type.PASSAGE);
+        }
+    }
+
+
+
 
     @Test
     void TestSmallLabyrinthDFS() {
@@ -70,10 +90,11 @@ public class LabyrinthTest {
             }
         }
 
-        //Проверка, что поиск решения прошел успешно
+        // Проверка, что поиск решения прошел успешно
         var dfsolver = new DFSolver();
         var result = dfsolver.solve(maze, start, end);
-        assertThat(result).isNotNull();
+        assertThat(result).isNotEmpty();
+        validatePath(result, start, end); // Добавлено здесь
     }
 
     @Test
@@ -102,13 +123,16 @@ public class LabyrinthTest {
             }
         }
 
-        //Проверка, что поиск решения прошел успешно
+        // Проверка, что поиск решения прошел успешно
         var astarSolver = new AStarSolver();
         assert start != null;
         assert end != null;
         var result = astarSolver.solve(maze, start, end);
-        assertThat(result).isNotNull();
+        assertThat(result).isNotEmpty();
+        validatePath(result, start, end); // Добавлено здесь
     }
+
+
     @Test
     void testRender() {
         var mazeGenerator = new RecursiveBacktrackingGenerator(10, 10);
@@ -116,19 +140,16 @@ public class LabyrinthTest {
         var consoleRenderer = new ConsoleRenderer();
 
         try {
-
             String renderedMaze = consoleRenderer.render(maze);
-            /* Здесь можно добавить проверку, что renderedMaze
-             соответствует ожидаемой строке
-            Лабиринты всегда разные, поэтому поставить
-            проверку на правильную генерацию невозможно*/
 
+            // Проверяем, что в результате рендеринга присутствуют определенные символы
+            assertThat(renderedMaze).contains("|", "-", "\n");
         } catch (NoSuchElementException e) {
             // Ожидаемая ситуация - пустой лабиринт
             assertThat(e.getMessage()).isEqualTo("No cell below");
         }
-
     }
+
 
     @Test
     void testRenderNonEmptyMaze() {
@@ -163,7 +184,8 @@ public class LabyrinthTest {
         var result = bfsolver.solve(maze, start, end);
         try {
             String renderedMaze = consoleRenderer.render(maze, result);
-            //Аналогично нельзя добавить проверку на верное решение лабиринта
+            assertThat(renderedMaze).contains("|", "-", "●", "\n");
+
         } catch (NoSuchElementException e) {
             // Этот тест не должен генерировать исключение, так как лабиринт не пустой
             fail("Unexpected NoSuchElementException");
