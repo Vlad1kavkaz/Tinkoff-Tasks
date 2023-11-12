@@ -39,6 +39,7 @@ public class FileCloner {
             LOGGER.log(Level.SEVERE, "Ошибка при копировании файла", e);
         }
     }
+
     private FileCloner() {
 
     }
