@@ -22,8 +22,8 @@ public class FileClonerTest {
         // Проверяем, что скопированный файл существует и имеет правильное имя
         File[] filesInTempDir = Objects.requireNonNull(tempDir.listFiles());
         assertEquals(2, filesInTempDir.length); // Оригинал + копия
-        assertTrue(filesInTempDir[1].getName().endsWith(".txt"));
-        assertTrue(filesInTempDir[0].getName().startsWith("testFile — копия"));
+        assertTrue(filesInTempDir[0].getName().endsWith(".txt"));
+        assertTrue(filesInTempDir[1].getName().startsWith("testFile — копия"));
 
         // Проверяем, что содержимое скопированного файла идентично оригиналу
         String originalContent = Files.readString(originalFile.toPath());
