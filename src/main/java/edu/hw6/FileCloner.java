@@ -24,9 +24,9 @@ public class FileCloner {
         File newFile;
 
         do {
-            newFileName = counter > 1 ?
-                String.format("%s — копия (%d)%s", baseName, counter, extension) :
-                String.format("%s — копия%s", baseName, extension);
+            newFileName = counter > 1
+                ? String.format("%s — копия (%d)%s", baseName, counter, extension)
+                : String.format("%s — копия%s", baseName, extension);
 
             newFile = new File(directory, newFileName);
             counter++;
@@ -42,5 +42,6 @@ public class FileCloner {
     private FileCloner() {
 
     }
+
 }
 
