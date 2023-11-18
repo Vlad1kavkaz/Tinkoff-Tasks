@@ -1,1 +1,1 @@
-Main-Class: edu.project3.Program
+Main-Class: edu.project3.Main

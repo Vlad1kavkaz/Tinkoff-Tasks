@@ -22,31 +22,37 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
 
-public class Program {
+public class Main {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    private Program() {
+    private Main() {
     }
+
+    private final static Logger LOGGER =LogManager.getLogger(Main.class.getName());
 
     public static void main(String[] args) throws IOException {
         parseLogsToFile(parseArgs(args));
     }
+
+    private static final String markdown = "markdown";
 
     private static void parseLogsToFile(Namespace arguments) throws IOException {
         var dateFromArg = arguments.get("from");
         var dateToArg = arguments.get("to");
         var dateFrom = dateFromArg == null ? null : dateFromArg.toString();
         var dateTo = dateToArg == null ? null : dateToArg.toString();
-        LogResultWriter resultWriter = arguments.get("format").equals("markdown") ? new MdWriter() : new AdocWriter();
+        LogResultWriter resultWriter = arguments.get("format").equals(markdown) ? new MdWriter() : new AdocWriter();
         Path outPath = null;
         try {
             outPath = Path.of(arguments.get("out").toString());
         } catch (Exception e) {
-            System.out.println("Wrong out path");
+            LOGGER.info("Wrong out path");
             System.exit(1);
         }
 
@@ -68,7 +74,7 @@ public class Program {
             }
             reader.close();
         } catch (IOException e) {
-            System.out.println("File not found");
+            LOGGER.info("File not found");
             System.exit(1);
         }
         resultWriter.writeResultsToFile(logs.toArray(new LogInfo[0]), outPath);
@@ -111,8 +117,8 @@ public class Program {
                 .addArgument("--to");
         argParser
                 .addArgument("--format")
-                .choices("markdown", "adoc")
-                .setDefault("markdown");
+                .choices(markdown, "adoc")
+                .setDefault(markdown);
         argParser.addArgument("--out")
                 .type(String.class)
                 .required(true);
@@ -138,7 +144,7 @@ public class Program {
             try {
                 dateFrom = LocalDate.parse(from, FORMATTER);
             } catch (DateTimeParseException e) {
-                System.out.println(e.getMessage());
+                LOGGER.info(e.getMessage());
                 System.exit(1);
             }
         }
@@ -146,7 +152,7 @@ public class Program {
             try {
                 dateTo = LocalDate.parse(to, FORMATTER);
             } catch (DateTimeParseException e) {
-                System.out.println(e.getMessage());
+                LOGGER.info(e.getMessage());
                 System.exit(1);
             }
         }
