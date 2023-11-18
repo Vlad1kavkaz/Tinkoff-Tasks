@@ -22,11 +22,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Main {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -34,20 +34,20 @@ public class Main {
     private Main() {
     }
 
-    private final static Logger LOGGER =LogManager.getLogger(Main.class.getName());
+    private final static Logger LOGGER = LogManager.getLogger(Main.class.getName());
 
     public static void main(String[] args) throws IOException {
         parseLogsToFile(parseArgs(args));
     }
 
-    private static final String markdown = "markdown";
+    private static final String MARKDOWN = "markdown";
 
     private static void parseLogsToFile(Namespace arguments) throws IOException {
         var dateFromArg = arguments.get("from");
         var dateToArg = arguments.get("to");
         var dateFrom = dateFromArg == null ? null : dateFromArg.toString();
         var dateTo = dateToArg == null ? null : dateToArg.toString();
-        LogResultWriter resultWriter = arguments.get("format").equals(markdown) ? new MdWriter() : new AdocWriter();
+        LogResultWriter resultWriter = arguments.get("format").equals(MARKDOWN) ? new MdWriter() : new AdocWriter();
         Path outPath = null;
         try {
             outPath = Path.of(arguments.get("out").toString());
@@ -117,8 +117,8 @@ public class Main {
                 .addArgument("--to");
         argParser
                 .addArgument("--format")
-                .choices(markdown, "adoc")
-                .setDefault(markdown);
+                .choices(MARKDOWN, "adoc")
+                .setDefault(MARKDOWN);
         argParser.addArgument("--out")
                 .type(String.class)
                 .required(true);
