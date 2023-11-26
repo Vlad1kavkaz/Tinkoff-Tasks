@@ -35,6 +35,8 @@
         <junit.version>5.10.0</junit.version>
         <assertj.version>3.24.2</assertj.version>
 
+        <projectlombok.version>1.18.30</projectlombok.version>
+
         <maven-checkstyle-plugin.version>3.3.0</maven-checkstyle-plugin.version>
 
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
@@ -59,21 +61,26 @@
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
-                <version>${junit.version}</version>                <type>pom</type>
+                <version>${junit.version}</version>
+                <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
-
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${projectlombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>${jetbrains-annotations.version}</version>
             <scope>provided</scope>
         </dependency>
-
         <!-- Logging -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -95,12 +102,6 @@
             <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.1</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -108,10 +109,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>21</source>
-                    <target>21</target>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
