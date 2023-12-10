@@ -55,6 +55,7 @@ public final class DiskMap implements Map<String, String> {
         // Сохраняем данные на диск
         saveFile();
     }
+
     @Override
     public int size() {
         return map.size();

@@ -11,7 +11,7 @@ class HackerNewsTest {
         HackerNews hackerNews = new HackerNews();
         long[] top = hackerNews.hackerNewsTopStories();
 
-        assertEquals(470, top.length);
+        assertEquals(500, top.length);
         System.out.println(Arrays.toString(hackerNews.hackerNewsTopStories()));
 
     }
