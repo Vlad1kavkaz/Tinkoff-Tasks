@@ -16,46 +16,45 @@ class DiskMapTest {
 
     @Test
     void testSaveFile() {
-        DiskMap diskMap = new DiskMap();
-        diskMap.put("key1", "value1");
-        diskMap.put("key2", "value2");
-
         Path currentDirectory = Paths.get("src/test/java/edu/hw6/task1").toAbsolutePath();
         Path filePath = currentDirectory.resolve("testDiskMap.txt");
 
-        diskMap.saveFile(filePath);
+        DiskMap diskMap = new DiskMap(filePath);
+        diskMap.put("key1", "value1");
+        diskMap.put("key2", "value2");
+
+        diskMap.saveFile();
         assertEquals("value1", diskMap.get("key1"));
         assertEquals("value2", diskMap.get("key2"));
     }
 
     @Test
     void testReadFile() {
-        DiskMap diskMap = new DiskMap();
-
         Path currentDirectory = Paths.get("src/test/java/edu/hw6/task1").toAbsolutePath();
         Path filePath = currentDirectory.resolve("testDiskMap.txt");
 
-        diskMap.readFile(filePath);
+        DiskMap diskMap = new DiskMap(filePath);
+        diskMap.readFile();
         assertEquals("value1", diskMap.get("key1"));
         assertEquals("value2", diskMap.get("key2"));
     }
 
     @Test
     void testSaveAndReadFile() {
-        DiskMap diskMap = new DiskMap();
+        Path currentDirectory = Paths.get("src/test/java/edu/hw6/task1").toAbsolutePath();
+        Path filePath = currentDirectory.resolve("testSaveAndRead.txt");
+
+        DiskMap diskMap = new DiskMap(filePath);
         diskMap.put("Ключ", "значение");
         diskMap.put("Правильный ключ", "правильное значение");
 
         assertTrue(diskMap.containsKey("Правильный ключ"));
         assertTrue(diskMap.containsValue("правильное значение"));
 
-        Path currentDirectory = Paths.get("src/test/java/edu/hw6/task1").toAbsolutePath();
-        Path filePath = currentDirectory.resolve("testSaveAndRead.txt");
+        diskMap.saveFile();
 
-        diskMap.saveFile(filePath);
-
-        DiskMap newDisk = new DiskMap();
-        newDisk.readFile(filePath);
+        DiskMap newDisk = new DiskMap(filePath);
+        newDisk.readFile();
 
         assertFalse(newDisk.isEmpty());
         assertFalse(newDisk.containsKey("Неправильный ключ"));
@@ -67,7 +66,7 @@ class DiskMapTest {
 
     @Test
     void testThatKeySetReturnedCorrectSetKeySize() {
-        DiskMap diskMap = new DiskMap();
+        DiskMap diskMap = new DiskMap(Paths.get("testDiskMap.txt"));
         diskMap.put("key1", "value1");
         diskMap.put("key2", "value2");
 
@@ -80,7 +79,7 @@ class DiskMapTest {
 
     @Test
     void testValuesFunctionContainsExpectedValues() {
-        DiskMap diskMap = new DiskMap();
+        DiskMap diskMap = new DiskMap(Paths.get("testDiskMap.txt"));
         diskMap.put("key1", "value1");
         diskMap.put("key2", "value2");
 
@@ -93,7 +92,7 @@ class DiskMapTest {
 
     @Test
     void testEntrySetReturnedExpectedEntries() {
-        DiskMap diskMap = new DiskMap();
+        DiskMap diskMap = new DiskMap(Paths.get("testDiskMap.txt"));
         diskMap.put("key1", "value1");
         diskMap.put("key2", "value2");
 
@@ -106,7 +105,7 @@ class DiskMapTest {
 
     @Test
     void testThatRemoveReturnedExpectedValue() {
-        DiskMap diskMap = new DiskMap();
+        DiskMap diskMap = new DiskMap(Paths.get("testDiskMap.txt"));
         diskMap.put("key1", "value1");
         diskMap.put("key2", "value2");
 
@@ -117,7 +116,7 @@ class DiskMapTest {
 
     @Test
     void testThatPutAllAddedValues() {
-        DiskMap diskMap = new DiskMap();
+        DiskMap diskMap = new DiskMap(Paths.get("testDiskMap.txt"));
         diskMap.put("key1", "value1");
         diskMap.put("key2", "value2");
 
@@ -136,7 +135,7 @@ class DiskMapTest {
 
     @Test
     void testThatClearEmptiedMap() {
-        DiskMap diskMap = new DiskMap();
+        DiskMap diskMap = new DiskMap(Paths.get("testDiskMap.txt"));
         diskMap.put("key1", "value1");
         diskMap.put("key2", "value2");
 

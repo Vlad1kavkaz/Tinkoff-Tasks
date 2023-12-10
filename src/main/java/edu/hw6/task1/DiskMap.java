@@ -10,17 +10,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public final class DiskMap implements Map<String, String> {
     private Map<String, String> map;
+    private Path filePath;
 
-    public DiskMap() {
+    public DiskMap(Path filePath) {
+        this.filePath = filePath;
         this.map = new HashMap<>();
+        // Считываем данные с диска при создании объекта
+        readFile();
     }
 
-    public void saveFile(final Path filePath) {
+    public void saveFile() {
         try (PrintWriter writer = new PrintWriter(filePath.toFile())) {
             for (Map.Entry<String, String> entry : map.entrySet()) {
                 writer.println(entry.getKey() + ":" + entry.getValue());
@@ -31,13 +33,16 @@ public final class DiskMap implements Map<String, String> {
         }
     }
 
-    public void readFile(final Path filePath) {
+    public void readFile() {
         try (BufferedReader reader = Files.newBufferedReader(filePath)) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(":");
                 if (parts.length == 2) {
                     map.put(parts[0], parts[1]);
+                } else {
+                    // Обработка некорректных данных в файле, например, выброс исключения
+                    throw new IOException("Invalid data format in the file: " + filePath);
                 }
             }
         } catch (IOException e) {
@@ -46,6 +51,10 @@ public final class DiskMap implements Map<String, String> {
         }
     }
 
+    public void writeFile() {
+        // Сохраняем данные на диск
+        saveFile();
+    }
     @Override
     public int size() {
         return map.size();
@@ -57,35 +66,32 @@ public final class DiskMap implements Map<String, String> {
     }
 
     @Override
-    public boolean containsKey(final Object key) {
+    public boolean containsKey(Object key) {
         return map.containsKey(key);
     }
 
     @Override
-    public boolean containsValue(final Object value) {
+    public boolean containsValue(Object value) {
         return map.containsValue(value);
     }
 
     @Override
-    public String get(final Object key) {
+    public String get(Object key) {
         return map.get(key);
     }
 
-    @Nullable
     @Override
-    public String put(final String key, final String value) {
+    public String put(String key, String value) {
         return map.put(key, value);
     }
 
     @Override
-    public String remove(final Object key) {
+    public String remove(Object key) {
         return map.remove(key);
     }
 
     @Override
-    public void putAll(
-        final @NotNull Map<? extends String, ? extends String> m
-    ) {
+    public void putAll(Map<? extends String, ? extends String> m) {
         map.putAll(m);
     }
 
@@ -94,19 +100,16 @@ public final class DiskMap implements Map<String, String> {
         map.clear();
     }
 
-    @NotNull
     @Override
     public Set<String> keySet() {
         return map.keySet();
     }
 
-    @NotNull
     @Override
     public Collection<String> values() {
         return map.values();
     }
 
-    @NotNull
     @Override
     public Set<Entry<String, String>> entrySet() {
         return map.entrySet();

@@ -18,12 +18,10 @@ import static edu.hw6.task3.AbstractFilter.regexContains;
 class AbstractFilterTest {
 
     private void createDisk(String filename) {
-        DiskMap diskMap = new DiskMap();
-
         Path currentDirectory = Paths.get("src/test/java/edu/hw6/task3/").toAbsolutePath();
         Path filePath = currentDirectory.resolve(filename);
 
-        diskMap.saveFile(filePath);
+        DiskMap diskMap = new DiskMap(filePath);
     }
 
     @Test
