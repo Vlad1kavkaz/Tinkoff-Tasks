@@ -45,6 +45,7 @@ public class MultiThreadedBruteforcerTest {
         String passwordHash,
         int expectedLength
     ) {
+        // expect
         assertThrows(IllegalArgumentException.class, () -> {
             MultiThreadedPasswordBruteforcer.bruteforce(passwordHash, expectedLength);
         });

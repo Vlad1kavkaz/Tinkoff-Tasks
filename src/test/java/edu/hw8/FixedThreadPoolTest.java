@@ -21,6 +21,7 @@ public class FixedThreadPoolTest {
         int[] fibonacciNumberIndices =
             new int[] {12312, 32131, 42633, 29235, 57231, 71634, 15664, 24912, 29913, 123929, 11291};
 
+        //expect
         assertDoesNotThrow(() -> {
             List<RunnableFuture> runnableFutures = new ArrayList<>();
             try (ThreadPool threadPool = FixedThreadPool.create(nThreads)) {
