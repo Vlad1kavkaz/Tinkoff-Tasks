@@ -34,7 +34,7 @@ public class Main {
     private Main() {
     }
 
-    private final static Logger LOGGER = LogManager.getLogger(Main.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(Main.class.getName());
 
     public static void main(String[] args) throws IOException {
         parseLogsToFile(parseArgs(args));
@@ -89,9 +89,9 @@ public class Main {
                 Files.writeString(tempfile, response.body());
                 return tempfile;
             } catch (IOException | InterruptedException e) {
-                return null;
+                e.printStackTrace();
             } catch (URISyntaxException e) {
-                return null;
+                e.printStackTrace();
             }
         }
         return Path.of(path);
