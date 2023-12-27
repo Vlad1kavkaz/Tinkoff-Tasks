@@ -89,9 +89,9 @@ public class Main {
                 Files.writeString(tempfile, response.body());
                 return tempfile;
             } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage());
             } catch (URISyntaxException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage());
             }
         }
         return Path.of(path);
