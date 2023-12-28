@@ -24,14 +24,6 @@ public class ByteBuddyExampleTest {
     }
 
     @Test
-    public void testTask2() {
-//        Task2.redefine();
-//        Task2.ArithmeticUtils arithmeticUtils = new Task2.ArithmeticUtils();
-//        int actualResult = arithmeticUtils.sum(10, 10);
-//        assertEquals(100, actualResult);
-    }
-
-    @Test
     public void testTask3() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         Object clazz = Task3.returnClass();
         long result = (long) clazz.getClass().getMethod("fib", int.class).invoke(clazz, 10);
