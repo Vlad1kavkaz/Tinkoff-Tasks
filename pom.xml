@@ -35,6 +35,8 @@
         <junit.version>5.10.0</junit.version>
         <assertj.version>3.24.2</assertj.version>
 
+        <projectlombok.version>1.18.30</projectlombok.version>
+
         <maven-checkstyle-plugin.version>3.3.0</maven-checkstyle-plugin.version>
 
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
@@ -68,12 +70,17 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${projectlombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>${jetbrains-annotations.version}</version>
             <scope>provided</scope>
         </dependency>
-
         <!-- Logging -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -83,6 +90,15 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+            <scope>provided</scope>
+        </dependency>
+
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -95,28 +111,6 @@
             <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- Testing -->
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>5.7.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-inline</artifactId>
-            <version>5.2.0</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.30</version>
-            <scope>provided</scope>
-        </dependency>
-
 
     </dependencies>
 
