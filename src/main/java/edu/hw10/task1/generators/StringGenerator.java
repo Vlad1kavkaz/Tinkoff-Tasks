@@ -1,7 +1,6 @@
 package edu.hw10.task1.generators;
 
 import edu.hw10.task1.annotations.NotNull;
-
 import java.lang.annotation.Annotation;
 import java.util.concurrent.ThreadLocalRandom;
 
