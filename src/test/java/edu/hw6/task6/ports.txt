@@ -1,0 +1,85 @@
+TCP     135    EPMAP
+UDP     137    NETBIOS
+UDP     138    Unknown Service
+TCP     139    NETBIOS-SSN
+TCP     445    MICROSOFT-DS
+UDP     1900    Unknown Service
+UDP     2177    Unknown Service
+TCP     5040    Unknown Service
+UDP     5050    Unknown Service
+UDP     5353    Unknown Service
+UDP     5355    Unknown Service
+TCP     5432    PostgreSQL
+TCP     6943    Unknown Service
+TCP     27036    Steam Downloads (Unofficial)
+UDP     27036    Steam Downloads (Unofficial)
+TCP     27060    Unknown Service
+TCP     42050    Unknown Service
+TCP     135    EPMAP
+UDP     137    NETBIOS
+UDP     138    Unknown Service
+TCP     139    NETBIOS-SSN
+TCP     445    MICROSOFT-DS
+UDP     1900    Unknown Service
+UDP     2177    Unknown Service
+TCP     5040    Unknown Service
+UDP     5050    Unknown Service
+UDP     5353    Unknown Service
+UDP     5355    Unknown Service
+TCP     5432    PostgreSQL
+TCP     6943    Unknown Service
+TCP     27036    Steam Downloads (Unofficial)
+UDP     27036    Steam Downloads (Unofficial)
+TCP     27060    Unknown Service
+TCP     42050    Unknown Service
+TCP     135    EPMAP
+UDP     137    NETBIOS
+UDP     138    Unknown Service
+TCP     139    NETBIOS-SSN
+TCP     445    MICROSOFT-DS
+UDP     1900    Unknown Service
+UDP     2177    Unknown Service
+TCP     5040    Unknown Service
+UDP     5050    Unknown Service
+UDP     5353    Unknown Service
+UDP     5355    Unknown Service
+TCP     5432    PostgreSQL
+TCP     6943    Unknown Service
+TCP     27036    Steam Downloads (Unofficial)
+UDP     27036    Steam Downloads (Unofficial)
+TCP     27060    Unknown Service
+TCP     42050    Unknown Service
+TCP     135    EPMAP
+UDP     137    NETBIOS
+UDP     138    Unknown Service
+TCP     139    NETBIOS-SSN
+TCP     445    MICROSOFT-DS
+UDP     1900    Unknown Service
+UDP     2177    Unknown Service
+TCP     5040    Unknown Service
+UDP     5050    Unknown Service
+UDP     5353    Unknown Service
+UDP     5355    Unknown Service
+TCP     5432    PostgreSQL
+TCP     6943    Unknown Service
+TCP     27036    Steam Downloads (Unofficial)
+UDP     27036    Steam Downloads (Unofficial)
+TCP     27060    Unknown Service
+TCP     42050    Unknown Service
+TCP     135    EPMAP
+UDP     137    NETBIOS
+UDP     138    Unknown Service
+TCP     139    NETBIOS-SSN
+TCP     445    MICROSOFT-DS
+UDP     500    Unknown Service
+UDP     1900    Unknown Service
+UDP     4500    Unknown Service
+TCP     5040    Unknown Service
+UDP     5050    Unknown Service
+UDP     5353    Unknown Service
+UDP     5355    Unknown Service
+TCP     5432    PostgreSQL
+UDP     6771    Unknown Service
+TCP     7070    Unknown Service
+TCP     35261    Unknown Service
+UDP     35261    Unknown Service
